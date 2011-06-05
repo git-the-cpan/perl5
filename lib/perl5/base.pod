@@ -1,0 +1,86 @@
+=encoding utf8
+
+=head1 NAME
+
+perl5::base - Base class for perl5 plugins
+
+=head1 SYNOPSIS
+
+    use perl5;
+
+Same as:
+
+    use perl5-base;
+
+Same as:
+
+    use 5.010;
+    use strict;
+    use warnings;
+
+=head1 DESCRIPTION
+
+C<perl5::base> is both a C<perl5> plugin and a base class for C<perl5>
+plugins.
+
+=head1 API
+
+This API is new, unstable, shite, and will change once I talk to some smart
+people about how to do it right.
+
+To create a plugin called C<perl5::foo> that gets called like this:
+
+    use perl5-foo;
+
+Write some code like this:
+
+    package perl5::foo;
+    use perl5::base 0.01 ();
+    our $VERSION = 0.12;
+    our @ISA = qw(perl5::base);
+
+    use SomeModule 0.22 ();
+    use OtherModule 0.33 ();
+
+    sub import {
+        # you can do stuff here, but then:
+        goto perl5::base::import;
+    }
+
+    # These is the code that will be run when people use your module:
+    sub use_module_code_section {
+        return <<"...";
+    use SomeModule;
+    use OtherModule option1 => 2;
+    ...
+    }
+
+    1;
+
+The name C<use_module_code_section> is meant to be ugly, because it feels like
+an ugly way to do it.
+
+=head1 SEE ALSO
+
+=over
+
+=item *
+
+L<perl5>
+
+=back
+
+=head1 AUTHOR
+
+Ingy döt Net <ingy@ingy.net>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2010. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html
+
+=cut
