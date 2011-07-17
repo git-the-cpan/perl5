@@ -20,8 +20,9 @@ no_index:
     - t
 requires:
   perl: 5.10.0
+  version: 0.77
 resources:
   homepage: http://github.com/ingydotnet/perl5-pm/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/ingydotnet/perl5-pm.git
-version: 0.04
+version: 0.05
