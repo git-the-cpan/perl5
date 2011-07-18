@@ -13,9 +13,12 @@ use v5.10.0;
 package perl5;
 use strict;
 use warnings;
-use feature ();
 
-use version 0.77; our $VERSION = version->parse('0.05')->stringify;
+use feature ();
+use version 0.77 ();
+use Hook::LexWrap 0.24;
+
+our $VERSION = '0.06';
 
 my $requested_perl_version = 0;
 
@@ -40,17 +43,15 @@ sub VERSION {
     }
 }
 
-sub import {
-    my ($class, $arg) = @_;
-    my $package = caller;
+sub version_check {
+    my ($class, $args) = @_;
 
-    if (defined $arg) {
-        my $version = $arg;
+    if (defined $args->[0]) {
+        my $version = $args->[0];
         $version =~ s/^-//;
         if (version::is_lax($version)) {
             $requested_perl_version = version->parse($version);
-            splice(@_, 1, 1);
-            $arg = $_[1];
+            shift(@$args);
         }
     }
     if ($requested_perl_version) {
@@ -59,47 +60,63 @@ sub import {
         eval "use $version";
         die $@ if $@;
     }
+}
+
+sub import {
+    my $class = shift;
+    my $package = caller;
+
+    $class->version_check(\@_);
+    my $arg = shift;
 
     if ($class ne 'perl5') {
         (my $usage = $class) =~ s/::/-/;
         die "Don't 'use $class'. Try 'use $usage'";
     }
+    die "Two many arguments for 'use perl5...'"
+        if @_;
 
-    if (not defined $arg) {
-        strict->import;
-        warnings->import;
-        feature->import(':5.10');
-        return;
-    }
+    my $subclass =
+        not(defined($arg)) ? __PACKAGE__ :
+        $arg =~ /^-(\w+)$/ ?__PACKAGE__ . "::$1" :
+        die "'$arg' is an invalid first argument to 'use perl5...'";
+    eval "require $subclass; 1" or die $@;
 
-    if (not $arg =~ /^-(\w+)$/) {
-        die "'$arg' is an invalid first argument to 'use perl5...'"
-    }
+    @_ = ($subclass);
+    goto $class->can('importer');
+}
 
-    my $perl5_class = "perl5::$1";
-    eval "use $perl5_class (); 1" or die $@;
+sub important {}
+sub importer {
+    my $class = shift;
+    my @imports = scalar(@_) ? @_ : $class->imports;
+    my @wrappers;
 
-    {
-        no strict 'refs';
-        if (defined &{"${perl5_class}::import"}) {
-            splice(@_, 0, 1, $perl5_class);
-            goto &{"${perl5_class}::import"};
+    while (@imports) {
+        my $name = shift(@imports);
+        my $version = (@imports and version::is_lax($imports[0]))
+            ? version->parse(shift(@imports))->numify : '';
+        my $arguments = (@imports and ref($imports[0]) eq 'ARRAY')
+            ? shift(@imports) : undef;
+        push @wrappers, wrap important => post => sub {
+            eval "use $name $version (); 1" or die $@;
+            return if $arguments and not @$arguments;
+            @_ = ($name, @{$arguments || []});
+            goto $name->can('import');
         }
     }
 
-    if (my $code = $perl5_class->code) {
-        strict->import;
-        warnings->import;
-        feature->import(':5.10');
-    eval <<"..." or die $@;
-package $package;
-$code
-;1;
-...
-    }
+    @_ = @wrappers;
+    goto &important;
 }
 
-use constant code => '';
+sub imports {
+    return (
+        'strict',
+        'warnings',
+        'feature' => [':5.10'],
+    );
+}
 
 1;
 
@@ -183,12 +200,16 @@ Write some code like this:
     use base 'perl5';
     our $VERSION = 0.12;
 
-    # These is the code that will be run when people use your module:
-    sub code {
-        return <<"...";
-    use SomeModule 0.22;
-    use OtherModule 0.33 option1 => 2;
-    ...
+    # These is the list of modules (with optional version and arguments)
+    sub imports {
+        return (
+            strict =>
+            warnings =>
+            features => [':5.10'],
+            SomeModule => 0.22,
+            OtherModule => 0.33, [option1 => 2],
+            Module => [],   # Don't invoke Module's import() method
+        );
     }
 
     1;
