@@ -1,5 +1,5 @@
 ---
-abstract: 'Use a Bunch of Modules in One Go'
+abstract: 'Use a Perl 5 group of modules/features'
 author:
   - 'Ingy döt Net <ingy@ingy.net>'
 build_requires:
@@ -26,4 +26,4 @@ resources:
   homepage: http://github.com/ingydotnet/perl5-pm/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/ingydotnet/perl5-pm.git
-version: 0.06
+version: 0.07
