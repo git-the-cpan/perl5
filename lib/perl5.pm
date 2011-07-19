@@ -20,7 +20,7 @@ use warnings;
 use version 0.77 ();
 use Hook::LexWrap 0.24;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 my $requested_perl_version = 0;
 my $perl_version = 10;
@@ -88,11 +88,12 @@ sub import {
     goto &{$class->can('importer')};
 }
 
-sub important {}
 sub importer {
     my $class = shift;
     my @imports = scalar(@_) ? @_ : $class->imports;
     my @wrappers;
+
+    my $important = sub {};
 
     while (@imports) {
         my $name = shift(@imports);
@@ -100,16 +101,17 @@ sub importer {
             ? version->parse(shift(@imports))->numify : '';
         my $arguments = (@imports and ref($imports[0]) eq 'ARRAY')
             ? shift(@imports) : undef;
-        push @wrappers, wrap important => post => sub {
+
+        $important = wrap $important => post => sub {
             eval "use $name $version (); 1" or die $@;
             return if $arguments and not @$arguments;
+            my $importee = $name->can('import') or return;
             @_ = ($name, @{$arguments || []});
-            goto &{$name->can('import')};
-        }
+            goto &$importee;
+        };
     }
 
-    @_ = @wrappers;
-    goto &important;
+    goto &$important;
 }
 
 sub imports {
