@@ -3,11 +3,12 @@ abstract: 'Use a Perl 5 group of modules/features'
 author:
   - 'Ingy döt Net <ingy@ingy.net>'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 configure_requires:
-  ExtUtils::MakeMaker: 6.42
+  ExtUtils::MakeMaker: 6.59
 distribution_type: module
-generated_by: 'Module::Install version 1.01'
+dynamic_config: 1
+generated_by: 'Module::Install version 1.06'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,11 +20,13 @@ no_index:
     - inc
     - t
 requires:
-  Hook::LexWrap: 0.24
   perl: 5.10.0
-  version: 0.77
+  version: 0.99
 resources:
-  homepage: http://github.com/ingydotnet/perl5-pm/tree
+  homepage: https://github.com/ingydotnet/perl5-pm/tree
   license: http://dev.perl.org/licenses/
-  repository: git://github.com/ingydotnet/perl5-pm.git
-version: 0.08
+  repository:
+    type: git
+    url: git://github.com/ingydotnet/perl5-pm.git
+    web: https://github.com/ingydotnet/perl5-pm/tree
+version: 0.09
