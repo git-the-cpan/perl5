@@ -1,53 +1,38 @@
----
-version: 0.09
-date:    Tue Jun 19 15:01:03 UTC 2012
-changes:
-- barefootcoder++ bluefeet++ and tobyink++ led to switching out Hook::LexWrap
-  with logic from Import::Into. Things are much cleaner now, and actually
-  export correctly (as far as we know :)
----
-version: 0.08
-date:    Tue Jul 19 06:33:06 PDT 2011
-changes:
-- Apply changes to support lack of import sub for modules from audreyt++
----
-version: 0.07
-date:    Mon Jul 18 17:14:13 PDT 2011
-changes:
-- Use feature set from requested version
-- Update docs
----
-version: 0.06
-date:    Sun Jul 17 22:36:56 PDT 2011
-changes:
-- Change $VERSION layout back to normal.
-- Refactor versioning.
-- Use a post hook wrapping goto chain like rig.pm
-- Simplify the API
----
-version: 0.05
-date:    Sun Jul 17 12:10:30 PDT 2011
-changes:
-- Support 'use perl5 v10.0' usage
-- Test all usage combinations
----
-version: 0.04
-date:    Sun Jun 12 13:46:16 EST 2011
-changes:
-- Refactor things to be sane API.
-- Got rid of perl5::base.
----
-version: 0.03
-date:    Tue Jun  7 17:34:37 EST 2011
-changes:
-- Release with Module::Package 0.22
----
-version: 0.02
-date:    Mon Jun  6 02:07:57 EST 2011
-changes:
-- Release with major bug fix in Module::Package
----
-version: 0.01
-date:    Sun Jun  5 21:43:19 EST 2011
-changes:
-- First Release
+0.10 Fri Jun 27 17:38:36 PDT 2014
+ - Switch to Zilla::Dist
+
+0.09 Tue Jun 19 15:01:03 UTC 2012
+ - barefootcoder++ bluefeet++ and tobyink++ led to switching out
+   Hook::LexWrap with logic from Import::Into. Things are much cleaner now,
+   and actually export correctly (as far as we know :)
+
+0.08 Tue Jul 19 06:33:06 PDT 2011
+ - Apply changes to support lack of import sub for modules from audreyt++
+
+0.07 Mon Jul 18 17:14:13 PDT 2011
+ - Use feature set from requested version
+ - Update docs
+
+0.06 Sun Jul 17 22:36:56 PDT 2011
+ - Change $VERSION layout back to normal.
+ - Refactor versioning.
+ - Use a post hook wrapping goto chain like rig.pm
+ - Simplify the API
+
+0.05 Sun Jul 17 12:10:30 PDT 2011
+ - Support 'use perl5 v10.0' usage
+ - Test all usage combinations
+
+0.04 Sun Jun 12 13:46:16 EST 2011
+ - Refactor things to be sane API.
+ - Got rid of perl5::base.
+
+0.03 Tue Jun  7 17:34:37 EST 2011
+ - Release with Module::Package 0.22
+
+0.02 Mon Jun  6 02:07:57 EST 2011
+ - Release with major bug fix in Module::Package
+
+0.01 Sun Jun  5 21:43:19 EST 2011
+ - First Release
+

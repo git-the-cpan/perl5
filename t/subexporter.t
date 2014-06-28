@@ -1,5 +1,11 @@
 use Test::More 0.88;
-use lib 't/lib';
+BEGIN {
+    eval { require Sub::Exporter };
+    plan skip_all => 'Sub::Exporter is not installed' if $@;
+}
+
+use File::Basename;
+use lib dirname(__FILE__) . '/lib';
 
 {
     package test1;
