@@ -40,6 +40,11 @@
             "perl" : "v5.8.1",
             "version" : "0.99"
          }
+      },
+      "test" : {
+         "requires" : {
+            "Module::Runtime" : "0"
+         }
       }
    },
    "release_status" : "stable",
@@ -54,6 +59,6 @@
          "web" : "https://github.com/ingydotnet/perl5-pm"
       }
    },
-   "version" : "0.11"
+   "version" : "0.12"
 }
 
