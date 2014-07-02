@@ -23,9 +23,11 @@ my %WriteMakefileArgs = (
     "version" => "0.99"
   },
   "TEST_REQUIRES" => {
-    "Module::Runtime" => 0
+    "Module::Runtime" => 0,
+    "Sub::Exporter" => 0,
+    "Test::Exception" => 0
   },
-  "VERSION" => "0.12",
+  "VERSION" => "0.13",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -34,6 +36,8 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Module::Runtime" => 0,
+  "Sub::Exporter" => 0,
+  "Test::Exception" => 0,
   "version" => "0.99"
 );
 

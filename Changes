@@ -1,3 +1,6 @@
+0.13 Wed Jul  2 14:02:50 PDT 2014
+ - Fix issue-6
+
 0.12 Mon Jun 30 12:26:37 PDT 2014
  - Add Module::Runtime testing prereq
 
