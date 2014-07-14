@@ -1,7 +1,7 @@
 {
    "abstract" : "Use a Perl 5 group of modules/features",
    "author" : [
-      "Ingy döt Net <you@your.name>"
+      "Ingy döt Net <ingy@cpan.org>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.132830",
@@ -61,6 +61,6 @@
          "web" : "https://github.com/ingydotnet/perl5-pm"
       }
    },
-   "version" : "0.13"
+   "version" : "0.14"
 }
 
