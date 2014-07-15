@@ -33,9 +33,6 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "perl5::i" : "0"
-         },
          "requires" : {
             "perl" : "v5.8.1",
             "version" : "0.99"
@@ -61,6 +58,6 @@
          "web" : "https://github.com/ingydotnet/perl5-pm"
       }
    },
-   "version" : "0.14"
+   "version" : "0.15"
 }
 
