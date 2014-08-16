@@ -9,7 +9,6 @@ Makefile.PL
 README
 lib/perl5.pm
 lib/perl5.pod
-t/000-compile-modules.t
 t/bogus.t
 t/exporter.t
 t/lexical.t
